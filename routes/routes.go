@@ -2,6 +2,7 @@ package routes
 
 import (
 	"beiwanglu/api"
+	"beiwanglu/middleware"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
@@ -24,6 +25,12 @@ func NewRouter() *gin.Engine {
 		// 用户操作
 		v1.POST("user/register", api.UserRegister)
 		v1.POST("user/login", api.UserLogin)
+		authed := v1.Group("/") //需要登陆保护
+		authed.Use(middleware.JWT())
+		{
+			//任务操作
+			authed.POST("task", api.CreateTask)
+		}
 	}
 	return r
 }
