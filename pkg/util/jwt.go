@@ -1,10 +1,9 @@
 package util
 
 import (
+	"github.com/dgrijalva/jwt-go"
 	"os"
 	"time"
-
-	"github.com/dgrijalva/jwt-go"
 )
 
 var jwtSecret = []byte(os.Getenv("JWT_SECRET"))

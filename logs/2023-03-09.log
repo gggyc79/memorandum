@@ -1,0 +1,2 @@
+time="2023-03-09 11:48:21" level=info msg="Key: 'UserService.Password' Error:Field validation for 'Password' failed on the 'min' tag"
+time="2023-03-09 11:48:35" level=info msg="Key: 'UserService.Password' Error:Field validation for 'Password' failed on the 'min' tag"

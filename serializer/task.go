@@ -1,5 +1,7 @@
 package serializer
 
+import "beiwanglu/model"
+
 // swagger:response Resp
 type Task struct {
 	ID        uint   `json:"id" example:"1"`       // 任务ID
@@ -12,9 +14,23 @@ type Task struct {
 	EndTime   int64  `json:"end_time"`
 }
 
-// 创建任务的服务
-type CreateTaskService struct {
-	Title   string `form:"title" json:"title" binding:"required,min=2,max=100"`
-	Content string `form:"content" json:"content" binding:"max=1000"`
-	Status  int    `form:"status" json:"status"` // 0 待办   1已完成
+func BuildTask(item model.Task) Task {
+	return Task{
+		ID:        item.ID,
+		Title:     item.Title,
+		Content:   item.Content,
+		Status:    item.Status,
+		View:      item.View(),
+		CreatedAt: item.CreatedAt.Unix(),
+		StartTime: item.StartTime,
+		EndTime:   item.EndTime,
+	}
+}
+
+func BuildTasks(items []model.Task) (tasks []Task) {
+	for _, item := range items {
+		task := BuildTask(item)
+		tasks = append(tasks, task)
+	}
+	return tasks
 }

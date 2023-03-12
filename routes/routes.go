@@ -4,6 +4,8 @@ import (
 	"beiwanglu/api"
 	"beiwanglu/middleware"
 
+	_ "beiwanglu/docs" // 这里需要引入本地已生成文档
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
@@ -29,7 +31,12 @@ func NewRouter() *gin.Engine {
 		authed.Use(middleware.JWT())
 		{
 			//任务操作
+			authed.GET("tasks", api.ListTasks)
 			authed.POST("task", api.CreateTask)
+			authed.GET("task/:id", api.ShowTask)
+			authed.DELETE("task/:id", api.DeleteTask)
+			authed.PUT("task/:id", api.UpdateTask)
+			authed.POST("search", api.SearchTasks)
 		}
 	}
 	return r

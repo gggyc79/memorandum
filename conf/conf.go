@@ -1,6 +1,7 @@
 package conf
 
 import (
+	"beiwanglu/cache"
 	"beiwanglu/model"
 	"fmt"
 	"strings"
@@ -28,6 +29,8 @@ func Init() {
 	LoadMysqlData(file) //加载数据库
 	path := strings.Join([]string{DbUser, ":", DbPassWord, "@tcp(", DbHost, ":", DbPort, ")/", DbName, "?charset=utf8&parseTime=true"}, "")
 	model.Database(path)
+	cache.Redis()
+	fmt.Println("!")
 }
 
 func LoadServer(file *ini.File) {
